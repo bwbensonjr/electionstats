@@ -4,4 +4,6 @@
 - ~~Factor out base URL.~~
 - Add unit tests.
 - ~~Change incumbent_status from a -1, 0, 1 integer to a string factor~~
+- Document query_elections and return columns in README.md.
+
 
