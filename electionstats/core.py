@@ -8,9 +8,11 @@ JSON_HEADERS = {
     "Accept": "application/json",
     }
 
-SEARCH_URL = "http://electionstats.state.ma.us/elections/search/year_from:{year_from}/year_to:{year_to}/office_id:{office_id}/stage:{stage}"
-ELECTION_URL = "http://electionstats.state.ma.us/elections/view/{election_id}/"
-DOWNLOAD_URL = "http://electionstats.state.ma.us/elections/download/{election_id}/precincts_include:{precincts_include}/"
+BASE_URL = "http://electionstats.state.ma.us/elections/"
+SEARCH_URL = (BASE_URL +
+              "search/year_from:{year_from}/year_to:{year_to}/office_id:{office_id}/stage:{stage}")
+ELECTION_URL = BASE_URL + "view/{election_id}/"
+DOWNLOAD_URL = BASE_URL + "download/{election_id}/precincts_include:{precincts_include}/"
 
 OFFICE_ID = {
     "President": 1,
