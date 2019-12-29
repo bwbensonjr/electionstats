@@ -72,6 +72,42 @@ The function returns a Pandas `DataFrame` with the following fields.
 | `incumbent_party`  | `object`  | Party of incumbent or `None` if open race  |
 | `incumbent_status` | `object`  | `Dem_Incumbent`, `GOP_Incumbent`, or `No_Incumbent` if open race |
 
+## Example
+
+```python
+>>> import electionstats
+>>> sr2016 = electionstats.query_elections(2016, 2016, "State Rep", "General")
+>>> sr2016.sample().iloc[0]
+election_id                                                    130361
+year                                                             2016
+date                                                       2016-11-08
+office                                           State Representative
+district                                               3rd Barnstable
+is_special                                                      False
+party_primary                                                    None
+dem_candidate                                      Matthew C. Patrick
+gop_candidate                                         David T. Vieira
+other_candidates                                                     
+dem_votes                                                       11317
+gop_votes                                                       12739
+total_votes                                                     25607
+other_votes                                                        11
+blank_votes                                                      1540
+num_candidates                                                      2
+winner                                                David T. Vieira
+winner_votes                                                    12739
+winner_pct                                                   0.497481
+winning_party                                              Republican
+candidates          [{'id': '62662', 'votesmart_id': '54354', 'slu...
+dem_percent                                                  0.470444
+incumbent                                             David T. Vieira
+prev_party                                                 Republican
+open_race                                                       False
+incumbent_party                                            Republican
+incumbent_status                                        GOP_Incumbent
+Name: 97, dtype: object
+```
+
 ## Run Unit Tests
 
 ```python
