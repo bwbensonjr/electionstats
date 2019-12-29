@@ -31,18 +31,12 @@ electionstats.query_elections(year_from,
 
 ## Parameters
 
-`year_from` : `int`
-    The first year for which results should be returned
-`year_to` : `int`
-    The last year for which results should be returned
-`office` : `str`
-    Which office results to return (e.g., "President", "US House", "State Rep", "State Senate")
-`stage` : `str`
-    Which type of election ("General", "Primaries", "Democratic", "Republican")
-`include_no_cand_elecs` : `boolean`, optional
-    Whether to include elections with zero candidates (default False)
-`include_specials` : `boolean`, optional
-    Whether to include special elections (default False)
+- `year_from` : `int` - The first year for which results should be returned
+- `year_to` : `int` - The last year for which results should be returned
+- `office` : `str` - The office results to be returned (e.g., "President", "US House", "State Rep", "State Senate")
+- `stage` : `str` - The type of election to consider ("General", "Primaries", "Democratic", "Republican")
+- `include_no_cand_elecs` : `boolean`, optional - Whether to include elections with zero candidates (default False)
+- `include_specials` : `boolean`, optional -  Whether to include special elections (default False)
 
 ## Returns
 
