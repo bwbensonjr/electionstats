@@ -22,7 +22,7 @@ OFFICE_ID = {
     "State Senate": 9,
     }
 
-OFFICES = OFFICE_ID.keys()
+OFFICES = list(OFFICE_ID.keys())
 
 ELECTION_FREQ = {
     OFFICE_ID["President"]: 4,
@@ -262,7 +262,6 @@ def find_incumbent(df):
 def find_prev_party(df):
     df["prev_party"] = df["winning_party"].shift(1)
     return df
-
 
 def open_race(e):
     open = (e["incumbent"] not in [c["display_name"] for c in e["candidates"]])
