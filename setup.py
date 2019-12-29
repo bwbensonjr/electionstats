@@ -3,6 +3,11 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+INSTALL_REQUIRES = [
+    "pandas",
+    "requests",
+    ]
+    
 setuptools.setup(
     name="electionstats",
     version="0.0.1",
@@ -17,5 +22,6 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
+    install_requires=INSTALL_REQUIRES,
     python_requires='>=3.5',
 )
