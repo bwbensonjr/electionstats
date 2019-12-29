@@ -20,6 +20,8 @@ OFFICE_ID = {
     "State Senate": 9,
     }
 
+OFFICES = OFFICE_ID.keys()
+
 ELECTION_FREQ = {
     OFFICE_ID["President"]: 4,
     OFFICE_ID["US House"]: 2,
@@ -44,33 +46,7 @@ def main():
     ma_rep["precinct_results"] = ma_rep["election_id"].map(read_election)
     ma_rep_08_pcts = pd.concat(list(ma_rep["precinct_results"]), ignore_index=True)[["election_id", "City/Town", "Ward", "Pct"]]
     
-def read_election(election_id, precincts_include=1):
-    """Read town-by-town or precinct-by-precinct CSV as DataFrame."""
-    if precincts_include:
-        ct = pd.read_csv(DOWNLOAD_URL.format(election_id=election_id,
-                                             precincts_include=precincts_include),
-                         thousands=",",
-                         dtype={"Ward": str, "Pct": str},
-                         skipfooter=1,
-                         engine="python")
-    else:
-        ct = pd.read_csv(DOWNLOAD_URL.format(election_id=election_id,
-                                             precincts_include=precincts_include),
-                         thousands=",",
-                         dtype={"Ward": str, "Pct": str},
-                         usecols=not_unnamed_ward_pct,
-                         skipfooter=1,
-                         engine="python")
-    ct["election_id"] = election_id
-    return ct
-    
-def not_unnamed_ward_pct(col_name):
-    nu = ((not col_name.startswith("Unnamed:")) and
-          (col_name != "Ward") and
-          (col_name != "Pct"))
-    return nu
-
-def query_elections(year_from, year_to, office_id, stage, include_no_cand_elecs=False, include_specials=False):
+def query_elections(year_from, year_to, office, stage, include_no_cand_elecs=False, include_specials=False):
     """Read a summary of election results.
     
     Paramaters
@@ -79,8 +55,8 @@ def query_elections(year_from, year_to, office_id, stage, include_no_cand_elecs=
         The first year for which results should be returned
     year_to : int
         The last year for which results should be returned
-    office_id : int
-        Which office results to return (e.g., OFFICE_ID["President"], OFFICE_ID["State Rep"])
+    office : str
+        Which office results to return (e.g., "President", "US House", "State Rep", "State Senate")
     stage : str
         Which type of election ("General", "Primaries", "Democratic", "Republican")
     include_no_cand_elecs : boolean, optional
@@ -93,6 +69,7 @@ def query_elections(year_from, year_to, office_id, stage, include_no_cand_elecs=
         pandas.DataFrame
            A summary of each election results in each row
     """
+    office_id = OFFICE_ID[office]
     elecs_list = []
     # for year in range(year_from, year_to+1, ELECTION_FREQ[office_id]):
     for year in range(year_from, year_to+1):
@@ -132,6 +109,32 @@ def query_elections_work(year, office_id, stage, include_no_cand_elecs=False, in
     elecs["incumbent_party"] = elecs.apply(incumbent_party, axis=1)
     elecs["incumbent_status"] = elecs.apply(incumbent_status, axis=1)
     return elecs
+
+def read_election(election_id, precincts_include=1):
+    """Read town-by-town or precinct-by-precinct CSV as DataFrame."""
+    if precincts_include:
+        ct = pd.read_csv(DOWNLOAD_URL.format(election_id=election_id,
+                                             precincts_include=precincts_include),
+                         thousands=",",
+                         dtype={"Ward": str, "Pct": str},
+                         skipfooter=1,
+                         engine="python")
+    else:
+        ct = pd.read_csv(DOWNLOAD_URL.format(election_id=election_id,
+                                             precincts_include=precincts_include),
+                         thousands=",",
+                         dtype={"Ward": str, "Pct": str},
+                         usecols=not_unnamed_ward_pct,
+                         skipfooter=1,
+                         engine="python")
+    ct["election_id"] = election_id
+    return ct
+    
+def not_unnamed_ward_pct(col_name):
+    nu = ((not col_name.startswith("Unnamed:")) and
+          (col_name != "Ward") and
+          (col_name != "Pct"))
+    return nu
 
 def election_details(e):
     winning_cand = winning_candidate(e["Candidate"])
