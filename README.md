@@ -2,7 +2,7 @@
 
 This module provides an `electionstats.query_elections` function which
 returns summaries of Massachusetts elections from the site
-[](https://electionstats.state.ma.us). It returns a Pandas `DataFrame`
+<https://electionstats.state.ma.us>. It returns a Pandas `DataFrame`
 documented below.
 
 ```python
@@ -48,7 +48,7 @@ The function returns a Pandas `DataFrame` with the following fields.
 | `year`             | `int64`   | Year of election             |
 | `date`             | `object`  | Election date             |
 | `office`           | `object`  | Office of election (e.g., President, State Representative)           |
-| `district`         | `object`  | District of election (e.g., United States, 31st Middlesex         |
+| `district`         | `object`  | District of election (e.g., United States, 31st Middlesex)         |
 | `is_special`       | `bool`    | Whether the election is special election       |
 | `party_primary`    | `object`  | `None` if not primary, otherwise party of primary    |
 | `dem_candidate`    | `object`  | Democratic candidate or `None`    |
