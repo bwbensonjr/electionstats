@@ -74,9 +74,11 @@ The function returns a Pandas `DataFrame` with the following fields.
 
 ## Example
 
-```python
+```
 >>> import electionstats
 >>> sr2016 = electionstats.query_elections(2016, 2016, "State Rep", "General")
+>>> len(sr2016)
+160
 >>> sr2016.sample().iloc[0]
 election_id                                                    130361
 year                                                             2016
