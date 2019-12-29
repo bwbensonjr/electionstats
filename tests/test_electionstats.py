@@ -1,5 +1,6 @@
 import unittest
 import electionstats
+import pandas as pd
 
 class ElectionStatsTests(unittest.TestCase):
 
@@ -11,6 +12,7 @@ class ElectionStatsTests(unittest.TestCase):
         self.assertEqual(len(p00_16), 5)
         self.assertEqual(p00_16["year"].min(), 2000)
         self.assertEqual(p00_16["year"].max(), 2016)
+        self.assertIsInstance(p00_16.sample().iloc[0]["date"], pd.Timestamp)
         # Add more here
 
     def test_state_rep(self):

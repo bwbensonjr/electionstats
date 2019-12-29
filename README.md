@@ -46,7 +46,7 @@ The function returns a Pandas `DataFrame` with the following fields.
 |:-----------------|:--------|:-----------------|
 | `election_id`      | `object`  | Unique election ID from electionstats website      |
 | `year`             | `int64`   | Year of election             |
-| `date`             | `object`  | Election date             |
+| `date`             | `datetime64[ns]`  | Election date             |
 | `office`           | `object`  | Office of election (e.g., President, State Representative)           |
 | `district`         | `object`  | District of election (e.g., United States, 31st Middlesex)         |
 | `is_special`       | `bool`    | Whether the election is special election       |

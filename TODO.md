@@ -5,6 +5,6 @@
 - ~~Add unit tests.~~
 - ~~Change incumbent_status from a -1, 0, 1 integer to a string factor~~
 - ~~Document query_elections and return columns in README.md.~~
-- Return `date` column as `datetime` instead of `object`
+- ~~Return `date` column as `datetime` instead of `object`~~
 - Expand unit tests.
 

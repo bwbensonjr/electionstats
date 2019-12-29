@@ -91,6 +91,7 @@ def query_elections_work(year, office_id, stage, include_no_cand_elecs=False, in
     r = requests.get(search_url, headers=JSON_HEADERS)
     rj = r.json()
     elecs = pd.DataFrame([election_details(e) for e in rj["output"]])
+    elecs["date"] = pd.to_datetime(elecs["date"])
     if len(elecs) == 0:
         return None
     if not include_no_cand_elecs:
