@@ -282,11 +282,11 @@ def incumbent_party(e):
 # e.g., election IDs 131567 and 131541
 def incumbent_status(e):
     if e["incumbent_party"] == "Democratic":
-        return 1
+        return "Dem_Incumbent"
     elif e["incumbent_party"] == "Republican":
-        return -1
+        return "GOP_Incumbent"
     else:
-        return 0
+        return "No_Incumbent"
 
 if __name__ == "__main__":
     main()
