@@ -72,7 +72,8 @@ The function returns a Pandas `DataFrame` with the following fields.
 | `incumbent_party`  | `object`  | Party of incumbent or `None` if open race  |
 | `incumbent_status` | `object`  | `Dem_Incumbent`, `GOP_Incumbent`, or `No_Incumbent` if open race |
 
+## Run Unit Tests
 
-
-
-
+```python
+python -m unittest tests.test_electionstats
+```
