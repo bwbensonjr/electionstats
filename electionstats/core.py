@@ -31,6 +31,7 @@ ELECTION_FREQ = {
     OFFICE_ID["US Senate"]: 6,
     OFFICE_ID["State Rep"]: 2,
     OFFICE_ID["State Senate"]: 2,
+    OFFICE_ID["Gov Council"]: 2,
     }
 
 STAGES = [
