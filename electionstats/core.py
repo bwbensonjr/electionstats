@@ -20,6 +20,7 @@ OFFICE_ID = {
     "US Senate": 6,
     "State Rep": 8,
     "State Senate": 9,
+    "Gov Council": 529,
     }
 
 OFFICES = list(OFFICE_ID.keys())

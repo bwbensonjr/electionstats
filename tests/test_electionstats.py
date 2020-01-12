@@ -20,5 +20,9 @@ class ElectionStatsTests(unittest.TestCase):
         self.assertEqual(len(sr2016), 160)
         # Add more here
 
+    def test_gov_council(self):
+        gc2018 = electionstats.query_elections(2018, 2018, "Gov Council", "General")
+        self.assertEqual(len(gc2018), 8)
+
 if __name__ == "__main__":
     unittest.main()
