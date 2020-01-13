@@ -3,7 +3,10 @@
 This module provides an `electionstats.query_elections` function which
 returns summaries of Massachusetts elections from the site
 <https://electionstats.state.ma.us>. It returns a Pandas `DataFrame`
-documented below.
+documented below. There is an additional `electionstats.read_election`
+that takes an `election_id` from `query_elections` and reads the
+precinct-level or municipality-level results, based on the
+`include_precincts` argument.
 
 ```python
 electionstats.OFFICES = [
@@ -72,7 +75,32 @@ The function returns a Pandas `DataFrame` with the following fields.
 | `incumbent_party`  | `object`  | Party of incumbent or `None` if open race  |
 | `incumbent_status` | `object`  | `Dem_Incumbent`, `GOP_Incumbent`, or `No_Incumbent` if open race |
 
-## Example
+```python
+electionstats.read_election(election_id, precincts_include)
+```
+
+## Parameters
+
+- `election_id` : `int` - The unique ID for an election as returned by `query_elections`
+- `precincts_include` : `bool` - If `True`, return precinct-level results, otherwise municipality-level
+
+## Returns
+
+The function returns a Pandas `DataFrame` with the following fields.
+
+| column | type | description |
+|:-----------------|:--------|:-----------------|
+| `City/Town` | `object` | The municipality of the result |
+| `Ward` | `object` | The electionw ward of the result or `-` if no ward |
+| `Pct` | `object` | The precinct of the result |
+| *Candidate1* | `int` | The number of votes for *Candidate1* |
+| *...* | `int` | Addition candidate vote columns |
+| `All others` | `int` | Number of votes for unnamed candidates |
+| `Blanks` | `int` | Number of blank non-votes |
+| `Total Votes Cast` | `int` | The total number of ballots cast |
+| `election_id` | `int` | The unique ID for this election |
+
+## Examples
 
 ```
 >>> import electionstats
@@ -108,6 +136,26 @@ open_race                                                       False
 incumbent_party                                            Republican
 incumbent_status                                        GOP_Incumbent
 Name: 97, dtype: object
+>>> sr2016_pcts = electionstats.read_election(sr2016["election_id"])
+>>> sr2016_pcts.sample().iloc[0]
+City/Town            Pepperell
+Ward                         -
+Pct                          1
+Clinton/ Kaine             965
+Trump/ Pence              1053
+Johnson/ Weld              170
+Stein/ Baraka               23
+Mcmullin/ Johnson            7
+Kotlikoff/ Leamer            0
+Feegbeh/ O'Brien             0
+Moorehead/ Lilly             0
+Schoenke/ Mitchel            0
+All Others                  45
+No Preference                0
+Blanks                      36
+Total Votes Cast          2299
+election_id             130243
+Name: 1503, dtype: object
 ```
 
 ## Run Unit Tests

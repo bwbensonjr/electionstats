@@ -10,7 +10,7 @@ INSTALL_REQUIRES = [
     
 setuptools.setup(
     name="electionstats",
-    version="0.0.1",
+    version="0.0.2",
     author="Brent Benson",
     author_email="bwbensonjr@gmail.com",
     description="Download Massachusetts election results from electionstats.state.ma.us",

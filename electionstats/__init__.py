@@ -1,4 +1,4 @@
 
-from .core import OFFICES, STAGES, query_elections
+from .core import OFFICES, STAGES, query_elections, read_election
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"

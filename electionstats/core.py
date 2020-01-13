@@ -115,18 +115,18 @@ def query_elections_work(year, office_id, stage, include_no_cand_elecs=False, in
     elecs["incumbent_status"] = elecs.apply(incumbent_status, axis=1)
     return elecs
 
-def read_election(election_id, precincts_include=1):
+def read_election(election_id, precincts_include=True):
     """Read town-by-town or precinct-by-precinct CSV as DataFrame."""
     if precincts_include:
         ct = pd.read_csv(DOWNLOAD_URL.format(election_id=election_id,
-                                             precincts_include=precincts_include),
+                                             precincts_include=1),
                          thousands=",",
                          dtype={"Ward": str, "Pct": str},
                          skipfooter=1,
                          engine="python")
     else:
         ct = pd.read_csv(DOWNLOAD_URL.format(election_id=election_id,
-                                             precincts_include=precincts_include),
+                                             precincts_include=0),
                          thousands=",",
                          dtype={"Ward": str, "Pct": str},
                          usecols=not_unnamed_ward_pct,
