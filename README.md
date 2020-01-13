@@ -6,7 +6,7 @@ returns summaries of Massachusetts elections from the site
 documented below. There is an additional `electionstats.read_election`
 that takes an `election_id` from `query_elections` and reads the
 precinct-level or municipality-level results, based on the
-`include_precincts` argument.
+`precincts_include` argument.
 
 ```python
 electionstats.OFFICES = [
@@ -95,10 +95,9 @@ The function returns a Pandas `DataFrame` with the following fields.
 | `Pct` | `object` | The precinct of the result |
 | *Candidate1* | `int` | The number of votes for *Candidate1* |
 | *...* | `int` | Addition candidate vote columns |
-| `All others` | `int` | Number of votes for unnamed candidates |
+| `All Others` | `int` | Number of votes for unnamed candidates |
 | `Blanks` | `int` | Number of blank non-votes |
 | `Total Votes Cast` | `int` | The total number of ballots cast |
-| `election_id` | `int` | The unique ID for this election |
 
 ## Examples
 
@@ -154,7 +153,6 @@ All Others                  45
 No Preference                0
 Blanks                      36
 Total Votes Cast          2299
-election_id             130243
 Name: 1503, dtype: object
 ```
 

@@ -134,7 +134,6 @@ def read_election(election_id, precincts_include=True):
                          skiprows=[1],
                          skipfooter=1,
                          engine="python")
-    ct["election_id"] = election_id
     return ct
     
 def not_unnamed_ward_pct(col_name):
