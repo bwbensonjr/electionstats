@@ -122,6 +122,7 @@ def read_election(election_id, precincts_include=True):
                                              precincts_include=1),
                          thousands=",",
                          dtype={"Ward": str, "Pct": str},
+                         skiprows=[1],
                          skipfooter=1,
                          engine="python")
     else:
@@ -130,6 +131,7 @@ def read_election(election_id, precincts_include=True):
                          thousands=",",
                          dtype={"Ward": str, "Pct": str},
                          usecols=not_unnamed_ward_pct,
+                         skiprows=[1],
                          skipfooter=1,
                          engine="python")
     ct["election_id"] = election_id
