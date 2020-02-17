@@ -344,8 +344,8 @@ def word_to_number(name):
     word = parts[0]
     if word in NUMBERS:
         parts[0] = NUMBERS[word]
-        new_name = " ".join(parts)
-    return new_name
+        name = " ".join(parts)
+    return name
 
 def number_to_word(dist):
     """Convert the first word of a legislative distrct like
@@ -354,8 +354,8 @@ def number_to_word(dist):
     num = parts[0]
     if num in WORDS:
         parts[0] = WORDS[num]
-        new_name = " ".join(parts)
-    return new_name
+        name = " ".join(parts)
+    return name
 
     
 if __name__ == "__main__":
