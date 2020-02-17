@@ -291,6 +291,73 @@ def incumbent_status(e):
     else:
         return "No_Incumbent"
 
+# Code for converting word-based numbers to numeric
+# format and vice-versa, primarily for differing legislative
+# district formats.
+
+NUMBERS = {
+    'First': '1st',
+    'Second': '2nd',
+    'Third': '3rd',
+    'Fourth': '4th',
+    'Fifth': '5th',
+    'Sixth': '6th',
+    'Seventh': '7th',
+    'Eighth': '8th',
+    'Ninth': '9th',
+    'Tenth': '10th',
+    'Eleventh': '11th',
+    'Twelfth': '12th',
+    'Thirteenth': '13th',
+    'Fourteenth': '14th',
+    'Fifteenth': '15th',
+    'Sixteenth': '16th',
+    'Seventeenth': '17th',
+    'Eighteenth': '18th',
+    'Nineteenth': '19th',
+    'Twentieth': '20th',
+    'Twenty-First': '21st',
+    'Twenty-Second': '22nd',
+    'Twenty-Third': '23rd',
+    'Twenty-Fourth': '24th',
+    'Twenty-Fifth': '25th',
+    'Twenty-Sixth': '26th',
+    'Twenty-Seventh': '27th',
+    'Twenty-Eighth': '28th',
+    'Twenty-Ninth': '29th',
+    'Thirtieth': '30th',
+    'Thirty-First': '31st',
+    'Thirty-Second': '32nd',
+    'Thirty-Third': '33rd',
+    'Thirty-Fourth': '34th',
+    'Thirty-Fifth': '35th',
+    'Thirty-Sixth': '36th',
+    'Thirty-Seventh': '37th',
+}
+
+WORDS = {NUMBERS[word]: word for word in NUMBERS}
+
+def word_to_number(name):
+    """Convert the first word of a legislative distrct like
+    'First Middlesex' to '1st Middlesex."""
+    parts = name.split(" ")
+    word = parts[0]
+    if word in NUMBERS:
+        parts[0] = NUMBERS[word]
+        new_name = " ".join(parts)
+    return new_name
+
+def number_to_word(dist):
+    """Convert the first word of a legislative distrct like
+    '1st Middlesex' to 'First Middlesex."""
+    parts = name.split(" ")
+    num = parts[0]
+    if num in WORDS:
+        parts[0] = WORDS[num]
+        new_name = " ".join(parts)
+    return new_name
+
+    
 if __name__ == "__main__":
     main()
     
