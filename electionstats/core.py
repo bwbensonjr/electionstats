@@ -357,7 +357,15 @@ def number_to_word(dist):
         name = " ".join(parts)
     return name
 
-    
+def abbreviate_compass(name):
+    """Abbreviate the directional part of municipality names to 
+    match those found in the electionstats database."""
+    abbr_name = (name.replace("North ", "N. ")
+                 .replace("East ", "E. ")
+                 .replace("South ", "S. ")
+                 .replace("West ", "W. "))
+    return abbr_name
+
 if __name__ == "__main__":
     main()
     
