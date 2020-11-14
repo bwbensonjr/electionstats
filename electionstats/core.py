@@ -16,6 +16,7 @@ DOWNLOAD_URL = BASE_URL + "download/{election_id}/precincts_include:{precincts_i
 
 OFFICE_ID = {
     "President": 1,
+    "Governor": 3,
     "US House": 5,
     "US Senate": 6,
     "State Rep": 8,
@@ -27,6 +28,7 @@ OFFICES = list(OFFICE_ID.keys())
 
 ELECTION_FREQ = {
     OFFICE_ID["President"]: 4,
+    OFFICE_ID["Governor"]: 4,
     OFFICE_ID["US House"]: 2,
     OFFICE_ID["US Senate"]: 6,
     OFFICE_ID["State Rep"]: 2,
@@ -101,8 +103,12 @@ def query_elections_work(year, office_id, stage, include_no_cand_elecs=False, in
     if len(elecs) == 0:
         return None
     elecs = elecs.sort_values(["date", "district"])
-    elecs = elecs.groupby("district").apply(find_incumbent)
-    elecs = elecs.groupby("district").apply(find_prev_party)
+    if all(elecs["district"].isnull()):
+        elecs = find_incumbent(elecs)
+        elecs = find_prev_party(elecs)
+    else:
+        elecs = elecs.groupby("district").apply(find_incumbent)
+        elecs = elecs.groupby("district").apply(find_prev_party)
     elecs = elecs[elecs["year"] == year]
     if len(elecs) == 0:
         return None
