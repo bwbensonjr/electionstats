@@ -152,6 +152,10 @@ def election_details(e):
     winning_cand = winning_candidate(e["Candidate"])
     if winning_cand:
         winner = winning_cand["display_name"]
+        if winning_cand["CandidateToElection"]["address2"]:
+            winner_city_town = winning_cand["CandidateToElection"]["address2"].split(",")[0]
+        else:
+            winner_city_town = None
         winner_votes = int(winning_cand["CandidateToElection"]["n_votes"])
         winner_pct = winner_votes / int(e["Election"]["n_total_votes"])
         if e["Election"]["party_primary"]:
@@ -160,6 +164,7 @@ def election_details(e):
             winning_party = winning_cand["CandidateToElection"]["party"]
     else:
         winner = None
+        winner_city_town = None
         winning_party = None
         winner_votes = None
         winner_pct = None
@@ -181,6 +186,7 @@ def election_details(e):
         "blank_votes": int(e["Election"]["n_blank_votes"]),
         "num_candidates": len(e["Candidate"]),
         "winner": winner,
+        "winner_city_town": winner_city_town,
         "winner_votes": winner_votes,
         "winner_pct": winner_pct,
         "winning_party": winning_party,
