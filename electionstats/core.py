@@ -16,6 +16,7 @@ DOWNLOAD_URL = BASE_URL + "download/{election_id}/precincts_include:{precincts_i
 
 OFFICE_ID = {
     "President": 1,
+    "Governor": 3,
     "US House": 5,
     "US Senate": 6,
     "State Rep": 8,
@@ -27,6 +28,7 @@ OFFICES = list(OFFICE_ID.keys())
 
 ELECTION_FREQ = {
     OFFICE_ID["President"]: 4,
+    OFFICE_ID["Governor"]: 4,
     OFFICE_ID["US House"]: 2,
     OFFICE_ID["US Senate"]: 6,
     OFFICE_ID["State Rep"]: 2,
@@ -101,8 +103,12 @@ def query_elections_work(year, office_id, stage, include_no_cand_elecs=False, in
     if len(elecs) == 0:
         return None
     elecs = elecs.sort_values(["date", "district"])
-    elecs = elecs.groupby("district").apply(find_incumbent)
-    elecs = elecs.groupby("district").apply(find_prev_party)
+    if all(elecs["district"].isnull()):
+        elecs = find_incumbent(elecs)
+        elecs = find_prev_party(elecs)
+    else:
+        elecs = elecs.groupby("district").apply(find_incumbent)
+        elecs = elecs.groupby("district").apply(find_prev_party)
     elecs = elecs[elecs["year"] == year]
     if len(elecs) == 0:
         return None
@@ -146,6 +152,10 @@ def election_details(e):
     winning_cand = winning_candidate(e["Candidate"])
     if winning_cand:
         winner = winning_cand["display_name"]
+        if winning_cand["CandidateToElection"]["address2"]:
+            winner_city_town = winning_cand["CandidateToElection"]["address2"].split(",")[0]
+        else:
+            winner_city_town = None
         winner_votes = int(winning_cand["CandidateToElection"]["n_votes"])
         winner_pct = winner_votes / int(e["Election"]["n_total_votes"])
         if e["Election"]["party_primary"]:
@@ -154,6 +164,7 @@ def election_details(e):
             winning_party = winning_cand["CandidateToElection"]["party"]
     else:
         winner = None
+        winner_city_town = None
         winning_party = None
         winner_votes = None
         winner_pct = None
@@ -175,6 +186,7 @@ def election_details(e):
         "blank_votes": int(e["Election"]["n_blank_votes"]),
         "num_candidates": len(e["Candidate"]),
         "winner": winner,
+        "winner_city_town": winner_city_town,
         "winner_votes": winner_votes,
         "winner_pct": winner_pct,
         "winning_party": winning_party,
