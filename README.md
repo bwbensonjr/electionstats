@@ -106,7 +106,7 @@ The function returns a Pandas `DataFrame` with the following fields.
 >>> sr2016 = electionstats.query_elections(2016, 2016, "State Rep", "General")
 >>> len(sr2016)
 160
->>> sr2016.sample().iloc[0]
+>>> sr2016.iloc[97]
 election_id                                                    130361
 year                                                             2016
 date                                                       2016-11-08
@@ -135,25 +135,17 @@ open_race                                                       False
 incumbent_party                                            Republican
 incumbent_status                                        GOP_Incumbent
 Name: 97, dtype: object
->>> sr2016_pcts = electionstats.read_election(sr2016["election_id"])
->>> sr2016_pcts.sample().iloc[0]
-City/Town            Pepperell
-Ward                         -
-Pct                          1
-Clinton/ Kaine             965
-Trump/ Pence              1053
-Johnson/ Weld              170
-Stein/ Baraka               23
-Mcmullin/ Johnson            7
-Kotlikoff/ Leamer            0
-Feegbeh/ O'Brien             0
-Moorehead/ Lilly             0
-Schoenke/ Mitchel            0
-All Others                  45
-No Preference                0
-Blanks                      36
-Total Votes Cast          2299
-Name: 1503, dtype: object
+>>> sr_130361_pcts = electionstats.read_election(sr2016.iloc[97]["election_id"])
+>>> sr_130361_pcts.sample().iloc[0]
+City/Town             Mashpee
+Ward                        -
+Pct                         3
+David T. Vieira           710
+Matthew C. Patrick        703
+All Others                  0
+Blanks                     69
+Total Votes Cast         1482
+Name: 11, dtype: object
 ```
 
 ## Run Unit Tests
