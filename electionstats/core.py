@@ -176,11 +176,13 @@ def election_details(e):
         "district": election_district(e),
         "is_special": True if e["Election"]["is_special"] else False,
         "party_primary": e["Election"]["party_primary"],
-        "dem_candidate": dem_candidate(e),
-        "gop_candidate": gop_candidate(e),
+        "dem_candidate": candidate_name(e, "Democratic"),
+        "gop_candidate": candidate_name(e, "Republican"),
         "other_candidates": other_candidates(e),
-        "dem_votes": dem_votes(e),
-        "gop_votes": gop_votes(e),
+        "dem_votes": candidate_votes(e, "Democratic"),
+        "gop_votes": candidate_votes(e, "Republican"),
+        "dem_city_town": candidate_city_town(e, "Democratic"),
+        "gop_city_town": candidate_city_town(e, "Republican"),
         "total_votes": int(e["Election"]["n_total_votes"]),
         "other_votes": int(e["Election"]["n_all_other_votes"]),
         "blank_votes": int(e["Election"]["n_blank_votes"]),
@@ -209,20 +211,22 @@ def get_candidate(e, party):
                 return c
     return None
 
-def dem_candidate(e):
-    c = get_candidate(e, "Democratic")
+def candidate_name(e, party):
+    c = get_candidate(e, party)
     if c is None:
         return None
     else:
         return c["CandidateToElection"]["display_name"]
 
-def gop_candidate(e):
-    c = get_candidate(e, "Republican")
+def candidate_city_town(e, party):
+    c = get_candidate(e, party)
     if c is None:
         return None
     else:
-        return c["CandidateToElection"]["display_name"]
-
+        if c["CandidateToElection"]["address2"]:
+            city_town = c["CandidateToElection"]["address2"].split(",")[0]
+            return city_town
+    
 def other_candidates(e):
     cs = get_candidate(e, None)
     if cs is None:
@@ -232,15 +236,8 @@ def other_candidates(e):
         names_str = ",".join(names)
         return names_str
 
-def dem_votes(e):
-    c = get_candidate(e, "Democratic")
-    if c is None:
-        return None
-    else:
-        return int(c["CandidateToElection"]["n_votes"])
-
-def gop_votes(e):
-    c = get_candidate(e, "Republican")
+def candidate_votes(e, party):
+    c = get_candidate(e, party)
     if c is None:
         return None
     else:

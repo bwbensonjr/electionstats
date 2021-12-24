@@ -59,11 +59,14 @@ The function returns a Pandas `DataFrame` with the following fields.
 | `other_candidates` | `object`  | Comma-separated list of 3rd party or Unenrolled candidates |
 | `dem_votes`        | `float64` | Number of Democratic votes or `NaN`        |
 | `gop_votes`        | `float64` | Number of GOP votes or `NaN`        |
+| `dem_city_town`    | `str`     | City/Town of Democratic candidate        |
+| `gop_city_town`    | `str`     | City/Town of GOP candidate        |
 | `total_votes`      | `int64`   | Total number of votes cast      |
 | `other_votes`      | `int64`   | Number of 3rd party or Unenrolled votes or `NaN`      |
 | `blank_votes`      | `int64`   | Number of blank ballots      |
 | `num_candidates`   | `int64`   | Total number of candidates in election   |
 | `winner`           | `object`  | Name of winning candidate           |
+| `winner_city_Town` | `str`     | City/Town of winning candidate           |
 | `winner_votes`     | `int64`   | Number of votes received by winning candidate     |
 | `winner_pct`       | `float64` | Percent of votes, based on `total_votes`       |
 | `winning_party`    | `object`  | Party of winning candidate    |
