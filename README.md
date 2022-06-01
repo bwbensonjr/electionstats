@@ -67,7 +67,7 @@ The function returns a Pandas `DataFrame` with the following fields.
 | `num_candidates`   | `int64`   | Total number of candidates in election   |
 | `winner`           | `object`  | Name of winning candidate           |
 | `winner_address`   | `str`     | Address of winning candidate           |
-| `winner_city_Town` | `str`     | City/Town of winning candidate           |
+| `winner_city_town` | `str`     | City/Town of winning candidate           |
 | `winner_votes`     | `int64`   | Number of votes received by winning candidate     |
 | `winner_pct`       | `float64` | Percent of votes, based on `total_votes`       |
 | `winning_party`    | `object`  | Party of winning candidate    |
