@@ -168,6 +168,7 @@ def election_details(e):
             winning_party = winning_cand["CandidateToElection"]["party"]
     else:
         winner = None
+        winner_address = None
         winner_city_town = None
         winning_party = None
         winner_votes = None
