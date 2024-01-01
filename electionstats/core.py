@@ -107,8 +107,12 @@ def query_elections_work(year, office_id, stage, include_no_cand_elecs=False, in
         elecs = find_incumbent(elecs)
         elecs = find_prev_party(elecs)
     else:
-        elecs = elecs.groupby("district").apply(find_incumbent)
-        elecs = elecs.groupby("district").apply(find_prev_party)
+        elecs = (elecs.groupby("district")
+                 .apply(find_incumbent)
+                 .reset_index(drop=True)
+                 .groupby("district")
+                 .apply(find_prev_party)
+                 .reset_index(drop=True))
     elecs = elecs[elecs["year"] == year]
     if len(elecs) == 0:
         return None
